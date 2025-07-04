@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Appender para las instrucciones SQL -->
+        <RollingFile name="SQLAppender" fileName="logs/hibernateSQL.log"
+                     filePattern="logs/hibernateSQL-%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+        </RollingFile>
+
+        <!-- Appender para los logs generales -->
+        <RollingFile name="HibernateLogAppender" fileName="logs/hibernate.log"
+                     filePattern="logs/hibernate-%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- Logger para instrucciones SQL -->
+        <Logger name="org.hibernate.SQL" level="info" additivity="false">
+            <AppenderRef ref="SQLAppender" />
+        </Logger>
+
+        <!-- Logger para logs generales -->
+        <Logger name="org.hibernate" level="info" additivity="false">
+            <AppenderRef ref="HibernateLogAppender" />
+        </Logger>
+
+        <!-- Root Logger -->
+        <Root level="info">
+        </Root>
+    </Loggers>
+</Configuration>
